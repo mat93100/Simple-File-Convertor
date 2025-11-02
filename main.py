@@ -1,4 +1,5 @@
 import os
+import sys
 from PIL import Image
 def get_files(path,type,to):
     if not os.path.exists(path):
@@ -30,10 +31,14 @@ def get_files(path,type,to):
 def main():
     files = ["png", "jpg", "webp", "gif", "bmp", "tiff", "eps", "pdf", "svg", "ico", "raw", "avif", "heic", "indd", "ai", "fla"]
     print("Welcome to the minimalist bulk file converter.")
-    path = input("Enter the path of the directory: ")
-    if not os.path.exists(path):
-        print("Path does not exist.")
+    try:
+        path = sys.argv[1]
+        print("File loaded succesfully.")
+    except IndexError:
         path = input("Enter the path of the directory: ")
+        while not os.path.exists(path):
+            print("Path does not exist.")
+            path = input("Enter the path of the directory: ")
     print("Select the type of files you want to convert:")
     num_columns = (len(files) + 4)
     for i in range(5):
